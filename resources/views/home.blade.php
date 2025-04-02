@@ -24,7 +24,9 @@
         border-radius: 10px;
         overflow: hidden;
     }
-
+    .page-content {
+    padding-bottom: 120px; /* Mini-player (56px) + Navigation (55px) + Marge (9px) */
+}
     .album-cover img {
         width: 100%;
         height: auto;

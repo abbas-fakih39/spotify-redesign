@@ -409,7 +409,115 @@
     cursor: pointer;
     transition: transform 0.2s;
 }
+/* Mini lecteur persistant */
+.mini-player {
+    position: fixed;
+    bottom: 55px; /* Juste au-dessus de la barre de navigation */
+    left: 0;
+    right: 0;
+    height: 56px;
+    background-color: #282828;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    z-index: 90;
+    border-top: 1px solid #333;
+}
 
+.mini-player-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.mini-player-left img {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    margin-right: 12px;
+    object-fit: cover;
+}
+
+.mini-track-info {
+    overflow: hidden;
+}
+
+.mini-track-title, .mini-track-artist {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mini-track-title {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.mini-track-artist {
+    font-size: 12px;
+    color: #B3B3B3;
+}
+
+.mini-player-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+.page-content {
+    padding-bottom: 120px; /* Mini-player (56px) + Navigation (55px) + Marge (9px) */
+}
+.mini-control {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.play-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 16px;
+}
+
+.mini-player-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-container {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.content {
+    padding-bottom: calc(56px + 55px); /* Hauteur du mini-player + hauteur de la nav */
+}
+
+.mini-player.hidden {
+    display: none;
+}
+
+@media (max-width: 576px) {
+    .mini-player-right {
+        display: none; /* Cacher le bouton d'expansion sur mobile pour économiser de l'espace */
+    }
+    
+    .mini-player-center {
+        justify-content: flex-end;
+    }
+}
 .category-card:hover {
     transform: scale(1.02);
 }
@@ -431,23 +539,123 @@
     <div class="content">
         @yield('content')
     </div>
-    
-    <div class="nav-container">
-    <a href="{{ route('home') }}" class="nav-item {{ Request::routeIs('home') ? 'active' : '' }}">
-            <i class="fas fa-home"></i>
-            <span>Accueil</span>
-        </a>
-        <a href="{{ route('search') }}" class="nav-item {{ Request::routeIs('search') ? 'active' : '' }}">
-            <i class="fas fa-search"></i>
-            <span>Rechercher</span>
-        </a>
-        <a href="{{ route('library') }}" class="nav-item {{ Request::routeIs('library') ? 'active' : '' }}">
-            <i class="fas fa-book"></i>
-            <span>Bibliothèque</span>
-        </a>
-    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @yield('scripts')
+    <script>
+// État global du lecteur
+let playerState = {
+    isPlaying: false,
+    currentTrack: {
+        id: null,
+        title: 'Titre de la chanson',
+        artist: 'Artiste',
+        cover: 'default-album.jpg'
+    }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    const miniPlayer = document.getElementById('mini-player');
+    const miniPlayBtn = document.getElementById('mini-play');
+    const miniPrevBtn = document.getElementById('mini-prev');
+    const miniNextBtn = document.getElementById('mini-next');
+    const miniExpandBtn = document.getElementById('mini-expand');
+    const miniCover = document.getElementById('mini-cover');
+    const miniTitle = document.getElementById('mini-title');
+    const miniArtist = document.getElementById('mini-artist');
+    
+    // Initialement cacher le mini-player s'il n'y a pas de chanson en cours
+    if (!playerState.currentTrack.id) {
+        miniPlayer.classList.add('hidden');
+    }
+    
+    // Fonction pour mettre à jour l'interface du mini-player
+    function updateMiniPlayer() {
+        miniTitle.textContent = playerState.currentTrack.title;
+        miniArtist.textContent = playerState.currentTrack.artist;
+        miniCover.src = '{{ asset("images/covers") }}/' + playerState.currentTrack.cover;
+        
+        if (playerState.isPlaying) {
+            miniPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            miniPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+        
+        // Afficher le mini-player s'il était caché
+        miniPlayer.classList.remove('hidden');
+    }
+    
+    // Gestionnaires d'événements pour les boutons
+    miniPlayBtn.addEventListener('click', function() {
+        playerState.isPlaying = !playerState.isPlaying;
+        updateMiniPlayer();
+        
+        // Si on est sur la page du player, synchroniser avec le lecteur principal
+        if (window.location.pathname.includes('/player/')) {
+            const mainPlayBtn = document.getElementById('play-pause-button');
+            if (mainPlayBtn) {
+                mainPlayBtn.click();
+            }
+        }
+    });
+    
+    miniPrevBtn.addEventListener('click', function() {
+        // Logique pour passer à la piste précédente
+        // Pour la démo, on ne fait que mettre à jour le titre
+        playerState.currentTrack.title = 'Piste précédente';
+        updateMiniPlayer();
+        
+        // Si on est sur la page du player, synchroniser
+        if (window.location.pathname.includes('/player/')) {
+            const mainPrevBtn = document.getElementById('prev-button');
+            if (mainPrevBtn) {
+                mainPrevBtn.click();
+            }
+        }
+    });
+    
+    miniNextBtn.addEventListener('click', function() {
+        // Logique pour passer à la piste suivante
+        playerState.currentTrack.title = 'Piste suivante';
+        updateMiniPlayer();
+        
+        // Si on est sur la page du player, synchroniser
+        if (window.location.pathname.includes('/player/')) {
+            const mainNextBtn = document.getElementById('next-button');
+            if (mainNextBtn) {
+                mainNextBtn.click();
+            }
+        }
+    });
+    
+    miniExpandBtn.addEventListener('click', function() {
+        // Rediriger vers la page du player pour cette piste
+        if (playerState.currentTrack.id) {
+            window.location.href = '/player/' + playerState.currentTrack.id;
+        }
+    });
+    
+    // Exposer les fonctions pour les utiliser depuis d'autres pages
+    window.playerControls = {
+        updateTrackInfo: function(id, title, artist, cover, isPlaying) {
+            playerState.currentTrack.id = id;
+            playerState.currentTrack.title = title;
+            playerState.currentTrack.artist = artist;
+            playerState.currentTrack.cover = cover;
+            playerState.isPlaying = isPlaying;
+            updateMiniPlayer();
+        },
+        play: function() {
+            playerState.isPlaying = true;
+            updateMiniPlayer();
+        },
+        pause: function() {
+            playerState.isPlaying = false;
+            updateMiniPlayer();
+        }
+    };
+});
+</script>
 </body>
 </html>

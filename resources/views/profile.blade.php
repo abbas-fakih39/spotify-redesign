@@ -131,7 +131,7 @@
     <div class="profile-background"></div>
     
     <div class="profile-avatar">
-        <img src="{{ asset('images/default-avatar.png') }}" alt="Profile Picture">
+        <img src="{{ asset('images/default-avatar.jpg') }}" alt="Profile Picture">
     </div>
     
     <div class="username">{{ Auth::user()->name }}</div>
@@ -142,7 +142,7 @@
 
     <div class="section-title">Musique du moment</div>
     <div class="music-moment-card">
-        <img src="{{ asset('images/tracks/bissap.jpg') }}" alt="Bissap">
+        <img src="{{ asset('images/tracks/bissap.jpeg') }}" alt="Bissap">
         <div>
             <strong>Bissap</strong>
             <p>Green Montana</p>

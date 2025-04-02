@@ -424,6 +424,22 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialisation
     loadTrack(0);
+    window.playerControls.updateTrackInfo(
+    {{ $track->id }}, 
+    "{{ $track->title }}", 
+    "{{ $track->artist }}", 
+    "{{ $track->cover ?? 'default-album.jpg' }}", 
+    isPlaying
+);
+
+// Mettre à jour le mini-player quand on joue/pause
+playPauseBtn.addEventListener('click', function() {
+    if (isPlaying) {
+        window.playerControls.pause();
+    } else {
+        window.playerControls.play();
+    }
+});
 });
 </script>
 @endsection

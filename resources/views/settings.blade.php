@@ -11,8 +11,8 @@
 
     <div class="settings-content">
         <div class="settings-list">
-            <a href="#" class="settings-item">Compte <i class="fas fa-chevron-right"></i></a>
-            <a href="#" class="settings-item">Lecture <i class="fas fa-chevron-right"></i></a>
+        <a href="{{ route('profile') }}" class="settings-item">Compte <i class="fas fa-chevron-right"></i></a>
+        <a href="#" class="settings-item">Lecture <i class="fas fa-chevron-right"></i></a>
             <a href="#" class="settings-item">Notifications <i class="fas fa-chevron-right"></i></a>
             <a href="#" class="settings-item">Publicités <i class="fas fa-chevron-right"></i></a>
             <a href="#" class="settings-item">Contenu et affichage <i class="fas fa-chevron-right"></i></a>
