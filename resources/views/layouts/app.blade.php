@@ -414,16 +414,18 @@
     transform: scale(1.02);
 }
         }
+    
     </style>
+       @yield('styles')
 </head>
 <body>
     <div class="header">
         <a href="{{ url('/') }}">
             <img src="{{ asset('images/Spotify logo.svg') }}" alt="Spotify Logo" height="30">
         </a>
-        <a href="{{ route('profile') }}" class="profile-link">
-            <i class="fas fa-user-circle" style="font-size: 24px;"></i>
-        </a>
+        <a href="{{ route('settings') }}" class="profile-link">
+    <i class="fas fa-user-circle" style="font-size: 24px; color: white;"></i>
+</a>
     </div>
     
     <div class="content">
@@ -431,21 +433,17 @@
     </div>
     
     <div class="nav-container">
+    <a href="{{ route('home') }}" class="nav-item {{ Request::routeIs('home') ? 'active' : '' }}">
+            <i class="fas fa-home"></i>
+            <span>Accueil</span>
+        </a>
         <a href="{{ route('search') }}" class="nav-item {{ Request::routeIs('search') ? 'active' : '' }}">
             <i class="fas fa-search"></i>
             <span>Rechercher</span>
         </a>
-        <a href="{{ route('home') }}" class="nav-item {{ Request::routeIs('home') ? 'active' : '' }}">
-            <i class="fas fa-home"></i>
-            <span>Accueil</span>
-        </a>
-        <a href="{{ route('favorites') }}" class="nav-item {{ Request::routeIs('favorites') ? 'active' : '' }}">
-            <i class="fas fa-heart"></i>
-            <span>Favoris</span>
-        </a>
-        <a href="{{ route('profile') }}" class="nav-item {{ Request::routeIs('profile') ? 'active' : '' }}">
-            <i class="fas fa-user"></i>
-            <span>Profil</span>
+        <a href="{{ route('library') }}" class="nav-item {{ Request::routeIs('library') ? 'active' : '' }}">
+            <i class="fas fa-book"></i>
+            <span>Bibliothèque</span>
         </a>
     </div>
 
