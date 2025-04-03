@@ -8,7 +8,6 @@ class LibraryController extends Controller
 {
     public function index()
     {
-        // Créer une playlist Favoris spéciale
         $favoritesPlaylist = (object)[
             'id' => 'favorites',
             'name' => 'Favoris',
@@ -17,7 +16,6 @@ class LibraryController extends Controller
             'is_special' => true
         ];
         
-        // Autres playlists (simulation)
         $playlists = [
             (object)[
                 'id' => 1,

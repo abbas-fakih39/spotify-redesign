@@ -25,8 +25,7 @@
         overflow: hidden;
     }
     .page-content {
-    padding-bottom: 120px; /* Mini-player (56px) + Navigation (55px) + Marge (9px) */
-}
+    padding-bottom: 120px; 
     .album-cover img {
         width: 100%;
         height: auto;
@@ -125,7 +124,6 @@
 </style>
 
 <div class="container-fluid p-0">
-    <!-- Hero Section -->
     <div class="hero-section">
         <div class="container">
             <div class="album-cover">
@@ -138,7 +136,6 @@
         <img src="{{ asset('path/to/artist-image.jpg') }}" alt="Artist" class="hero-image">
     </div>
 
-    <!-- Recommandations pour vous -->
     <div class="container mt-4">
         <h2 class="section-title">Pour vous</h2>
         <div class="recommendations-container">
@@ -155,7 +152,6 @@
         </div>
     </div>
 
-    <!-- Rechercher par genre -->
     <div class="container mt-4">
         <h2 class="section-title">Rechercher par genre</h2>
         <div class="genre-buttons">

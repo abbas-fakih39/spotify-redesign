@@ -28,7 +28,6 @@
 
 @section('styles')
 <style>
-    /* Styles généraux */
     body {
         margin: 0;
         padding: 0;
@@ -43,7 +42,6 @@
         background-color: #000;
     }
     
-    /* En-tête */
     .settings-header {
         padding: 20px 16px;
         margin-bottom: 20px;
@@ -66,7 +64,6 @@
         color: #fff;
     }
     
-    /* Liste des paramètres */
     .settings-list {
         padding: 0 16px;
         display: flex;
@@ -94,7 +91,6 @@
         font-size: 14px;
     }
     
-    /* Bouton de déconnexion */
     .logout-button-container {
         padding: 20px 16px;
         margin-top: 40px;
@@ -116,7 +112,6 @@
         background-color: #333;
     }
     
-    /* Adaptations pour mobiles */
     @media (max-width: 480px) {
         .settings-header h1 {
             font-size: 20px;

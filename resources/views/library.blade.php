@@ -7,7 +7,6 @@
     </div>
 
     <div class="playlists-container">
-        <!-- Playlist Favoris -->
         <div class="playlist-section">
             <h2>Favoris</h2>
             <div class="playlist-card special" onclick="window.location.href='{{ route('favorites') }}'">
@@ -21,7 +20,6 @@
 </div>
         </div>
 
-        <!-- Autres playlists -->
         <div class="playlist-section">
             <h2>Playlists</h2>
             <div class="playlists-grid">
@@ -38,7 +36,6 @@
                 @endforeach
             </div>
             
-            <!-- Bouton Créer une playlist -->
             <div class="create-playlist-container">
                 <a href="{{ route('playlists.create') }}" class="create-playlist-button">
                     <i class="fas fa-plus"></i> Créer une playlist
@@ -51,7 +48,6 @@
 
 @section('styles')
 <style>
-    /* Styles généraux */
     body {
         margin: 0;
         padding: 0;
@@ -75,7 +71,6 @@
         margin: 0;
     }
     
-    /* Sections de playlists */
     .playlist-section {
         margin-bottom: 30px;
     }
@@ -85,7 +80,6 @@
         margin: 15px 0;
     }
     
-    /* Carte de playlist */
     .playlists-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -156,7 +150,6 @@
         text-overflow: ellipsis;
     }
     
-    /* Bouton Créer une playlist */
     .create-playlist-container {
         margin-top: 30px;
         display: flex;
@@ -186,7 +179,6 @@
         margin-right: 8px;
     }
     
-    /* Adaptations pour mobiles */
     @media (max-width: 480px) {
         .playlists-grid {
             grid-template-columns: repeat(2, 1fr);

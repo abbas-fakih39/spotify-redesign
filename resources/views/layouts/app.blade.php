@@ -409,10 +409,9 @@
     cursor: pointer;
     transition: transform 0.2s;
 }
-/* Mini lecteur persistant */
 .mini-player {
     position: fixed;
-    bottom: 55px; /* Juste au-dessus de la barre de navigation */
+    bottom: 55px; 
     left: 0;
     right: 0;
     height: 56px;
@@ -468,7 +467,7 @@
     flex: 1;
 }
 .page-content {
-    padding-bottom: 120px; /* Mini-player (56px) + Navigation (55px) + Marge (9px) */
+    padding-bottom: 120px; 
 }
 .mini-control {
     background: none;
@@ -502,7 +501,7 @@
 }
 
 .content {
-    padding-bottom: calc(56px + 55px); /* Hauteur du mini-player + hauteur de la nav */
+    padding-bottom: calc(56px + 55px); 
 }
 
 .mini-player.hidden {
@@ -511,7 +510,7 @@
 
 @media (max-width: 576px) {
     .mini-player-right {
-        display: none; /* Cacher le bouton d'expansion sur mobile pour économiser de l'espace */
+        display: none; 
     }
     
     .mini-player-center {
@@ -544,7 +543,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @yield('scripts')
     <script>
-// État global du lecteur
 let playerState = {
     isPlaying: false,
     currentTrack: {
@@ -565,12 +563,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const miniTitle = document.getElementById('mini-title');
     const miniArtist = document.getElementById('mini-artist');
     
-    // Initialement cacher le mini-player s'il n'y a pas de chanson en cours
     if (!playerState.currentTrack.id) {
         miniPlayer.classList.add('hidden');
     }
     
-    // Fonction pour mettre à jour l'interface du mini-player
     function updateMiniPlayer() {
         miniTitle.textContent = playerState.currentTrack.title;
         miniArtist.textContent = playerState.currentTrack.artist;
@@ -582,16 +578,13 @@ document.addEventListener('DOMContentLoaded', function() {
             miniPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
         }
         
-        // Afficher le mini-player s'il était caché
         miniPlayer.classList.remove('hidden');
     }
     
-    // Gestionnaires d'événements pour les boutons
     miniPlayBtn.addEventListener('click', function() {
         playerState.isPlaying = !playerState.isPlaying;
         updateMiniPlayer();
         
-        // Si on est sur la page du player, synchroniser avec le lecteur principal
         if (window.location.pathname.includes('/player/')) {
             const mainPlayBtn = document.getElementById('play-pause-button');
             if (mainPlayBtn) {
@@ -601,12 +594,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     miniPrevBtn.addEventListener('click', function() {
-        // Logique pour passer à la piste précédente
-        // Pour la démo, on ne fait que mettre à jour le titre
+        
         playerState.currentTrack.title = 'Piste précédente';
         updateMiniPlayer();
         
-        // Si on est sur la page du player, synchroniser
+        
         if (window.location.pathname.includes('/player/')) {
             const mainPrevBtn = document.getElementById('prev-button');
             if (mainPrevBtn) {
@@ -616,11 +608,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     miniNextBtn.addEventListener('click', function() {
-        // Logique pour passer à la piste suivante
         playerState.currentTrack.title = 'Piste suivante';
         updateMiniPlayer();
         
-        // Si on est sur la page du player, synchroniser
         if (window.location.pathname.includes('/player/')) {
             const mainNextBtn = document.getElementById('next-button');
             if (mainNextBtn) {
@@ -630,13 +620,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     miniExpandBtn.addEventListener('click', function() {
-        // Rediriger vers la page du player pour cette piste
         if (playerState.currentTrack.id) {
             window.location.href = '/player/' + playerState.currentTrack.id;
         }
     });
     
-    // Exposer les fonctions pour les utiliser depuis d'autres pages
     window.playerControls = {
         updateTrackInfo: function(id, title, artist, cover, isPlaying) {
             playerState.currentTrack.id = id;

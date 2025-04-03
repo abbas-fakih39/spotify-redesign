@@ -82,7 +82,6 @@
         font-weight: bold;
     }
     
-    /* Barre de recherche */
     .search-container {
         margin-bottom: 30px;
     }
@@ -119,7 +118,6 @@
         cursor: pointer;
     }
     
-    /* Catégories et Tags */
     .search-categories h2 {
         font-size: 18px;
         margin: 25px 0 15px 0;
@@ -150,7 +148,6 @@
         transform: scale(1.05);
     }
     
-    /* Étoile verte décorative */
     .search-bar:after {
         content: "";
         position: absolute;
@@ -163,7 +160,6 @@
         z-index: -1;
     }
     
-    /* Résultats de recherche */
     .search-results {
         margin-top: 20px;
     }
@@ -249,7 +245,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchResults = document.getElementById('search-results');
     const searchPlaceholder = document.querySelector('.search-placeholder');
     
-    // Données simulées pour la recherche
     const mockData = [
         { id: 1, title: 'Shape of You', artist: 'Ed Sheeran', type: 'track' },
         { id: 2, title: 'Blinding Lights', artist: 'The Weeknd', type: 'track' },
@@ -259,7 +254,6 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 6, title: 'Summer Playlist', type: 'playlist' }
     ];
     
-    // Fonction pour afficher une notification
     function showNotification(message) {
         const notification = document.createElement('div');
         notification.className = 'notification';
@@ -271,7 +265,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
     
-    // Fonction de recherche
     searchInput.addEventListener('input', function() {
         const query = this.value.toLowerCase().trim();
         
@@ -280,13 +273,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Filtrer les résultats
         const results = mockData.filter(item => 
             item.title.toLowerCase().includes(query) || 
             (item.artist && item.artist.toLowerCase().includes(query))
         );
         
-        // Afficher les résultats
         if (results.length === 0) {
             searchResults.innerHTML = '<p class="no-results">Aucun résultat trouvé pour "' + query + '"</p>';
         } else {
@@ -313,7 +304,6 @@ document.addEventListener('DOMContentLoaded', function() {
             html += '</div>';
             searchResults.innerHTML = html;
             
-            // Ajouter des événements de clic aux résultats
             document.querySelectorAll('.result-item').forEach(item => {
                 item.addEventListener('click', function() {
                     const id = this.dataset.id;
@@ -331,7 +321,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Style de notification
     const style = document.createElement('style');
     style.textContent = `
         .notification {

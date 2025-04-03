@@ -11,7 +11,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\PlaylistController;
 
-// Ajouter cette route pour les paramètres
 Route::get('/settings', function () {
     return view('settings');
 })->name('settings');
@@ -20,7 +19,6 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
-// Routes d'authentification manuelles
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -29,18 +27,15 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 
 
-// Routes principales de l'application
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/library', [LibraryController::class, 'index'])->name('library');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/favorites', [HomeController::class, 'favorites'])->name('favorites');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
-// Routes du lecteur de musique
 Route::get('/player/{id}', [PlayerController::class, 'show'])->name('player.show');
 Route::get('/track/{id}', [PlayerController::class, 'trackView'])->name('track.view');
 
-// Routes pour les playlists
 Route::get('/playlists', [PlaylistController::class, 'index'])->name('playlists.index');
 Route::get('/playlists/create', [PlaylistController::class, 'create'])->name('playlists.create');
 Route::post('/playlists', [PlaylistController::class, 'store'])->name('playlists.store');
