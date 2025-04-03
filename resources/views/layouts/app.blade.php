@@ -645,5 +645,19 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 });
 </script>
+<div class="nav-container">
+<a href="{{ route('home') }}" class="nav-item {{ Request::routeIs('home') ? 'active' : '' }}">
+        <i class="fas fa-home"></i>
+        <span>Accueil</span>
+    </a>
+    <a href="{{ route('search') }}" class="nav-item {{ Request::routeIs('search') ? 'active' : '' }}">
+        <i class="fas fa-search"></i>
+        <span>Rechercher</span>
+    </a>
+    <a href="{{ route('library') }}" class="nav-item {{ Request::routeIs('library') ? 'active' : '' }}">
+        <i class="fas fa-book"></i>
+        <span>Bibliothèque</span>
+    </a>
+</div>
 </body>
 </html>
